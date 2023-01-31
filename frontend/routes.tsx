@@ -1,43 +1,15 @@
-import HelloReactView from 'Frontend/views/helloreact/HelloReactView.js';
 import MainLayout from 'Frontend/views/MainLayout.js';
-import { lazy } from 'react';
-import { createBrowserRouter, IndexRouteObject, NonIndexRouteObject, useMatches } from 'react-router-dom';
+import { createBrowserRouter } from 'react-router-dom';
+import { DashboardView } from 'Frontend/views/DashboardView.js';
+import { DetailsView } from 'Frontend/views/DetailsView.js';
 
-const AboutView = lazy(async () => import('Frontend/views/about/AboutView.js'));
-export type MenuProps = Readonly<{
-  icon?: string;
-  title?: string;
-}>;
-
-export type ViewMeta = Readonly<{ handle?: MenuProps }>;
-
-type Override<T, E> = Omit<T, keyof E> & E;
-
-export type IndexViewRouteObject = Override<IndexRouteObject, ViewMeta>;
-export type NonIndexViewRouteObject = Override<
-  Override<NonIndexRouteObject, ViewMeta>,
-  {
-    children?: ViewRouteObject[];
-  }
->;
-export type ViewRouteObject = IndexViewRouteObject | NonIndexViewRouteObject;
-
-type RouteMatch = ReturnType<typeof useMatches> extends (infer T)[] ? T : never;
-
-export type ViewRouteMatch = Readonly<Override<RouteMatch, ViewMeta>>;
-
-export const useViewMatches = useMatches as () => readonly ViewRouteMatch[];
-
-export const routes: readonly ViewRouteObject[] = [
+const router = createBrowserRouter([
   {
     element: <MainLayout />,
-    handle: { icon: 'null', title: 'Main' },
     children: [
-      { path: '/', element: <HelloReactView />, handle: { icon: 'la la-globe', title: 'Hello React' } },
-      { path: '/about', element: <AboutView />, handle: { icon: 'la la-file', title: 'About' } },
+      { path: '/', element: <DashboardView /> },
+      { path: '/details', element: <DetailsView /> },
     ],
   },
-];
-
-const router = createBrowserRouter([...routes]);
+]);
 export default router;
