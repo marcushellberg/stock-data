@@ -1,6 +1,7 @@
 package org.vaadin.marcus.astra.data;
 
 import com.crazzyghost.alphavantage.timeseries.response.StockUnit;
+import dev.hilla.Nonnull;
 import org.springframework.data.cassandra.core.cql.PrimaryKeyType;
 import org.springframework.data.cassandra.core.mapping.PrimaryKeyColumn;
 import org.springframework.data.cassandra.core.mapping.Table;
@@ -8,8 +9,10 @@ import org.springframework.data.cassandra.core.mapping.Table;
 @Table("stock_price")
 public class StockPrice {
 
+    @Nonnull // TODO: Hilla endpoint should really use an appropriate DTO instead of annotating the entity
     @PrimaryKeyColumn(name = "symbol", ordinal = 0, type = PrimaryKeyType.PARTITIONED)
     private String symbol;
+    @Nonnull
     @PrimaryKeyColumn(name = "time", ordinal = 1, type = PrimaryKeyType.CLUSTERED)
     private String time;
     private double open;
@@ -21,7 +24,8 @@ public class StockPrice {
     private double dividendamount;
     private double splitcoefficient;
 
-    public StockPrice() {}
+    public StockPrice() {
+    }
 
     public StockPrice(String symbol, StockUnit unit) {
         if (symbol != null && unit != null) {
