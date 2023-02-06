@@ -12,9 +12,9 @@
     "@hilla/generator-typescript-plugin-model": "2.0.0-alpha9",
     "@hilla/generator-typescript-plugin-push": "2.0.0-alpha9",
     "@hilla/generator-typescript-utils": "2.0.0-alpha9",
-    "@hilla/react-components": "2.0.0-alpha12",
+    "@hilla/react-components": "2.0.0-alpha13",
     "@polymer/polymer": "3.5.1",
-    "@vaadin/bundles": "24.0.0-alpha12",
+    "@vaadin/bundles": "24.0.0-alpha13",
     "@vaadin/common-frontend": "0.0.17",
     "@vaadin/icon": "24.0.0-alpha13",
     "@vaadin/icons": "24.0.0-alpha13",
@@ -61,9 +61,9 @@
       "@hilla/generator-typescript-plugin-model": "2.0.0-alpha9",
       "@hilla/generator-typescript-plugin-push": "2.0.0-alpha9",
       "@hilla/generator-typescript-utils": "2.0.0-alpha9",
-      "@hilla/react-components": "2.0.0-alpha12",
+      "@hilla/react-components": "2.0.0-alpha13",
       "@polymer/polymer": "3.5.1",
-      "@vaadin/bundles": "24.0.0-alpha12",
+      "@vaadin/bundles": "24.0.0-alpha13",
       "@vaadin/common-frontend": "0.0.17",
       "@vaadin/icon": "24.0.0-alpha13",
       "@vaadin/icons": "24.0.0-alpha13",
@@ -92,7 +92,7 @@
       "workbox-core": "6.5.4",
       "workbox-precaching": "6.5.4"
     },
-    "hash": "ebe6847af05d6f8355bb1dc1911d21a63141c0e28f0227511947a6d38ce606dd"
+    "hash": "35d141907f056aae72726c84da06f095fb02145326a2d1380d098c382089d93c"
   },
   "overrides": {
     "@vaadin/bundles": "$@vaadin/bundles",
