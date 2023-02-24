@@ -4,6 +4,7 @@ import { ApexOptions } from 'apexcharts';
 import { useEffect, useState } from 'react';
 import { StockPriceEndpoint } from 'Frontend/generated/endpoints.js';
 import StockSymbol from 'Frontend/generated/org/vaadin/marcus/astra/data/StockSymbol.js';
+import StockPrice from 'Frontend/generated/org/vaadin/marcus/astra/data/StockPrice.js';
 
 export function DashboardView() {
   const [ticker, setTicker] = useState('');
@@ -33,22 +34,24 @@ export function DashboardView() {
     StockPriceEndpoint.getSymbols().then(setSymbols);
   }, []);
 
-  useEffect(() => {
-    const subscription = StockPriceEndpoint.getStockPriceStream().onNext((stockPrice) => {
-      //@ts-ignore
-      setSeries((prevState) => {
-        const data = [
-          ...((prevState[0] && prevState[0].data) || []),
-          {
-            x: new Date(stockPrice.time),
-            y: [stockPrice.open, stockPrice.high, stockPrice.low, stockPrice.close],
-          },
-        ];
+  function updateSeries(stockPrice: StockPrice) {
+    //@ts-ignore
+    setSeries((prevState) => {
+      const previousData = (prevState[0] && prevState[0].data) || [];
+      const data = [
+        ...previousData,
+        {
+          x: new Date(stockPrice.time),
+          y: [stockPrice.open, stockPrice.high, stockPrice.low, stockPrice.close],
+        },
+      ];
 
-        return [{ data }];
-      });
+      return [{ data }];
     });
-    // Remember to close web socket when it's no longer needed
+  }
+
+  useEffect(() => {
+    const subscription = StockPriceEndpoint.getStockPriceStream().onNext((stockPrice) => updateSeries(stockPrice));
     return () => subscription.cancel();
   }, []);
 

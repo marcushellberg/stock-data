@@ -18,9 +18,7 @@ public class StockPriceEndpoint {
     private final StockPriceConsumer consumer;
     private final StockPriceService service;
 
-
     StockPriceEndpoint(StockPriceProducer producer, StockPriceConsumer consumer, StockPriceService service) {
-
         this.producer = producer;
         this.consumer = consumer;
         this.service = service;

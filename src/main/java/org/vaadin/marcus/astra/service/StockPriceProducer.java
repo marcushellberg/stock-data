@@ -6,9 +6,6 @@ import com.crazzyghost.alphavantage.parameters.Interval;
 import com.crazzyghost.alphavantage.parameters.OutputSize;
 import com.crazzyghost.alphavantage.timeseries.response.TimeSeriesResponse;
 import org.apache.pulsar.client.api.PulsarClientException;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.pulsar.core.PulsarTemplate;
 import org.springframework.stereotype.Component;
 import org.vaadin.marcus.astra.data.StockPrice;
@@ -16,14 +13,12 @@ import reactor.core.publisher.Flux;
 
 import java.time.Duration;
 import java.util.Collections;
+import java.util.stream.Stream;
 
 @Component
 public class StockPriceProducer {
-
-    private final Logger logger = LoggerFactory.getLogger(this.getClass());
     private final PulsarTemplate<StockPrice> pulsarTemplate;
 
-    @Autowired
     public StockPriceProducer(PulsarTemplate<StockPrice> pulsarTemplate) {
         this.pulsarTemplate = pulsarTemplate;
     }
@@ -48,6 +43,10 @@ public class StockPriceProducer {
         Collections.reverse(stockUnits);
         var stockPrices = stockUnits.stream().map(unit -> new StockPrice(symbol, unit));
 
+        publishStockPrices(stockPrices);
+    }
+
+    private void publishStockPrices(Stream<StockPrice> stockPrices) {
         // Publish items to pulsar with 100ms intervals
         Flux.fromStream(stockPrices)
                 // Delay elements for demo chart, don't do this in real life
@@ -62,7 +61,6 @@ public class StockPriceProducer {
     }
 
     public void handleFailure(AlphaVantageException error) {
-        /* uh-oh! */
-        logger.info("handleFailure: AlphaVantageException " + error.toString());
+        System.err.println("handleFailure: AlphaVantageException " + error.toString());
     }
 }

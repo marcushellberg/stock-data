@@ -25,9 +25,9 @@ import java.nio.file.Path;
  * Use the @PWA annotation make the application installable on phones, tablets
  * and some desktop browsers.
  */
+@EnableConfigurationProperties(DataStaxAstraProperties.class)
 @EnablePulsar
 @SpringBootApplication
-@EnableConfigurationProperties(DataStaxAstraProperties.class)
 @Theme(value = "stock-data")
 public class Application implements AppShellConfigurator {
 

@@ -12,7 +12,7 @@
 
     <properties>
         <java.version>17</java.version>
-        <hilla.version>2.0.0.alpha10</hilla.version>
+        <hilla.version>2.0.0.beta4</hilla.version>
         <!-- this parameter is needed as spring-boot bom overwrites it -->
         <selenium.version>4.5.3</selenium.version>
     </properties>
@@ -109,13 +109,13 @@
         </dependency>
 
         <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-data-cassandra</artifactId>
-        </dependency>
-        <dependency>
             <groupId>com.github.crazzyghost</groupId>
             <artifactId>alphavantage-java</artifactId>
             <version>1.6.2</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-cassandra</artifactId>
         </dependency>
         <dependency>
             <groupId>org.springframework.pulsar</groupId>
